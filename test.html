@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body></body>
+</html><!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
+    <title>WebSocket Connection</title>
+    <script language="javascript" type="text/javascript">
+
+	
+  
+  function init()
+  {
+	
+	document.myform.url.value = "ws://192.168.1.220:12021/ws"
+	document.myform.disconnectButton.disabled = true;
+	doConnect(); 
+	
+  }
+
+  function doConnect()
+  {
+    websocket = new WebSocket(document.myform.url.value);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
+
+  function onOpen(evt)
+  {
+    writeToScreen("connected\n");
+    doSend("hello");
+	document.myform.connectButton.disabled = true;
+	document.myform.disconnectButton.disabled = false;
+  }
+
+  function onClose(evt)
+  {
+    writeToScreen("disconnected\n");
+	document.myform.connectButton.disabled = false;
+	document.myform.disconnectButton.disabled = true;
+  }
+  
+  
+
+  function onMessage(evt)
+  {
+    writeToScreen("response: " + evt.data + '\n');
+    console.log("Message: ", evt.data)
+  }
+
+  function onError(evt)
+  {
+    writeToScreen('error: ' + evt.data + '\n');
+
+	websocket.close();
+
+	document.myform.connectButton.disabled = false;
+	document.myform.disconnectButton.disabled = true;
+
+  }
+
+  function doSend(message)
+  {
+    writeToScreen("sent: " + message + '\n'); 
+    websocket.send(message);
+  }
+
+  function writeToScreen(message)
+  {
+    document.myform.outputtext.value += message
+	document.myform.outputtext.scrollTop = document.myform.outputtext.scrollHeight;
+
+  }
+
+   window.addEventListener("load", init, false);
+  
+
+  function clearText() {
+	document.myform.outputtext.value = "";
+   }
+
+   function doDisconnect() {
+	websocket.close();
+   }
+
+
+</script> </head>
+  <body style='background-color:black; color:white; max-width:500px ' >
+    <form name="myform">
+      
+      
+      
+     
+     
+     
+      Server:
+      <p> <textarea name="url" cols="30" rows="2"></textarea> </p>
+      <p hidden> ID: <input name="id" value="1"></textarea> </p>
+      <input name="clearButton" value="Clear" onclick="clearText();" type="button">
+      <input name="sendButton" value="Send Id" onclick="sendId();" type="button">
+      <input name="disconnectButton" value="Disconnect" onclick="doDisconnect();"
+        type="button"> <input name="connectButton" value="Connect" onclick="doConnect();"
+        type="button">
+	    <p>  Log:<textarea name="outputtext" rows="5" cols="30"></textarea> </p>
+	</form>
+  </body>
+</html>
