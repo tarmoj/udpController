@@ -133,9 +133,9 @@ ApplicationWindow {
                 SpinBox {
                     id: portSpinBox
                     minimumValue: 1024
-                    maximumValue: 99999
+                    maximumValue: 65535
                     stepSize: 1
-                    value: 87878
+                    value: 10101
                 }
 
                 Button {

@@ -16,7 +16,7 @@ QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
 QT_FORWARD_DECLARE_CLASS(QWebSocket)
 
 
-#define UDPPORT 87878
+#define UDPPORT 20102
 
 class WsServer : public QObject
 {
