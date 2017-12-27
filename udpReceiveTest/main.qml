@@ -3,7 +3,7 @@ import QtQuick.Controls 1.4
 
 ApplicationWindow {
     visible: true
-    width: 800
+    width: 640
     height: 400
     title: qsTr("UDP receive test")
     id: window

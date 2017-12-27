@@ -6,7 +6,7 @@ import Qt.labs.settings 1.0
 ApplicationWindow {
     id: window
     visible: true
-    width: 640
+    width: 720
     height: 480
     title: qsTr("udpController")
     property string version: "0.1.0"
